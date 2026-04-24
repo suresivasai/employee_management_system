@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            text-align: center;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        .box {
+            width: 300px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+        }
+        .btn {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            background: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+        }
+        .logout {
+            background: red;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+<div style="background:#007BFF; padding:10px; color:white; display:flex; justify-content:space-between; align-items:center;">
+    
+    <div>
+        <a href="/" style="color:white; margin-right:15px; text-decoration:none;">Home</a>
+        <a href="/add/" style="color:white; margin-right:15px; text-decoration:none;">Add Employee</a>
+        <a href="/view/" style="color:white; text-decoration:none;">View Employees</a>
+    </div>
+
+    <div>
+        {% if user.is_authenticated %}
+            <a href="/logout/" style="color:white; text-decoration:none;">Logout</a>
+        {% else %}
+            <a href="/" style="color:white; text-decoration:none;">Login</a>
+        {% endif %}
+    </div>
+
+</div>
+<div class="container">
+
+    {% if user.is_authenticated %}
+        <h1>HR Dashboard</h1>
+        <p>Welcome! Use the menu above to manage employees.</p>
+    {% else %}
+
+        <div class="box">
+            <h2>HR Login</h2>
+
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username">
+                <input type="password" name="password" placeholder="Password">
+                <button class="btn" type="submit">Login</button>
+            </form>
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

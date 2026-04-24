@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Employee</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+        }
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<div style="background:#007BFF; padding:10px; color:white; display:flex; justify-content:space-between; align-items:center;">
+    
+    <div>
+        <a href="/" style="color:white; margin-right:15px; text-decoration:none;">Home</a>
+        <a href="/add/" style="color:white; margin-right:15px; text-decoration:none;">Add Employee</a>
+        <a href="/view/" style="color:white; text-decoration:none;">View Employees</a>
+    </div>
+
+    <div>
+        {% if user.is_authenticated %}
+            <a href="/logout/" style="color:white; text-decoration:none;">Logout</a>
+        {% else %}
+            <a href="/" style="color:white; text-decoration:none;">Login</a>
+        {% endif %}
+    </div>
+
+</div>
+<div class="container">
+    <h2>Add Employee</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <input type="text" name="name" value="{{ emp.name|default:'' }}">
+        <input type="number" name="emp_id" value="{{ emp.emp_id|default:'' }}">
+        <input type="text" name="designation" value="{{ emp.designation|default:'' }}">
+        <input type="date" name="date_of_joining" value="{{ emp.date_of_joining|default:'' }}">
+        <input type="text" name="department" value="{{ emp.department|default:'' }}">
+        <input type="number" name="salary" value="{{ emp.salary|default:'' }}">
+        <input type="number" name="experience" value="{{ emp.experience|default:'' }}">
+
+        <button type="submit">Add Employee</button>
+    </form>
+
+    <a href="/view/">View Employees</a>
+</div>
+
+</body>
+</html>
